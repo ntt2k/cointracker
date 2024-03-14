@@ -25,7 +25,7 @@ The project is divided into two main parts:
 
 1. Clone the repo
 ```sh
-git clone https://github.com/yourusername/cointracker.git
+git clone https://github.com/ntt2k/cointracker.git
 ```
 
 2. Build and run the Docker containers
