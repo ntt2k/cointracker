@@ -1,5 +1,9 @@
+import { satoshiToBTC } from "../utils/convert";
+
 export default function Row({ tx }) {
   const { hash, balance_change, balance_change_usd, time } = tx;
+  const btc = satoshiToBTC(balance_change);
+  const usd = balance_change_usd.toFixed(2);
 
   return (
     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -25,7 +29,7 @@ export default function Row({ tx }) {
         )}
       </td>
       <td className="px-6 py-4">
-        {balance_change} BTC / {balance_change_usd} USD
+        {btc} BTC / {usd} USD
       </td>
       <td className="px-6 py-4">{time} UTC</td>
     </tr>
