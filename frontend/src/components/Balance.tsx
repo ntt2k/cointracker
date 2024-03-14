@@ -1,6 +1,11 @@
 import { satoshiToBTC } from "../utils/convert";
 
-export default function Balance({ balance, balance_usd }) {
+type BalanceType = {
+  balance: number;
+  balance_usd: number;
+};
+
+export default function Balance({ balance, balance_usd }: BalanceType) {
   const btc = satoshiToBTC(balance);
   const usd = balance_usd.toFixed(2);
 
