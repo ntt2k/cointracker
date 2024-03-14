@@ -30,8 +30,8 @@ function App() {
     <div className="min-h-screen dark:bg-gray-900">
       <NavBar />
       <div className="p-1 pt-16 md:p-24 relative overflow-x-auto shadow-md sm:rounded-lg">
-        <WalletSearch onSubmit={(value: string) => setAddress(value)} />
-        <Table />
+        <WalletSearch data={data} onSubmit={(value: string) => setAddress(value)} />
+        <Table data={data} />
       </div>
     </div>
   );

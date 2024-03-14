@@ -1,4 +1,9 @@
-export default function Balance() {
+import { satoshiToBTC } from "../utils/convert";
+
+export default function Balance({ balance, balance_usd }) {
+  const btc = satoshiToBTC(balance);
+  const usd = balance_usd.toFixed(2);
+
   return (
     <div className="pr-8 relative flex !flex-row flex-col items-center rounded-[10px] rounded-[10px] border-[1px] text-lime-500 dark:text-white border-gray-200 bg-white bg-clip-border shadow-md dark:bg-gray-800 dark:border-gray-700">
       <div className="ml-[16px] flex h-[60px] w-auto items-center">
@@ -23,7 +28,7 @@ export default function Balance() {
       <div className="h-50 ml-4 flex w-auto flex-col justify-center">
         <p className="font-dm text-sm font-medium text-gray-600">Balance</p>
         <h4 className="text-xl font-bold text-navy-700 dark:text-white">
-          0.06621215 BTC - 4,857.88 USD
+          {btc} BTC / {usd} USD
         </h4>
       </div>
     </div>

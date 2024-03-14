@@ -2,24 +2,34 @@ import { useState } from "react";
 
 import Balance from "./Balance";
 
-type OnSubmitFunction = {
+type WalletSearchPropsType = {
+  data: unknown;
   onSubmit: (value: string) => void;
 };
 
-export default function WalletSearch({ onSubmit }: OnSubmitFunction) {
-  const [inputValue, setInputValue] = useState('');
+export default function WalletSearch({
+  data,
+  onSubmit
+}: WalletSearchPropsType) {
+  const [wallet, setWallet] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+    setWallet(e.target.value);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     // Check if the key pressed is the Enter key
-    if (e.key === 'Enter') {
-      onSubmit(inputValue);
+    if (e.key === "Enter") {
+      onSubmit(wallet);
     }
   };
 
+  const obj = data ? data.data : {};
+  // Get the first key
+  const firstKey = Object.keys(obj)[0];
+  // Get the value of the first key
+  const firstValue = obj[firstKey]?.["address"];
+  const { balance, balance_usd } = firstValue || {balance: 0, balance_usd: 0};
 
   return (
     <div className="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">
@@ -49,13 +59,13 @@ export default function WalletSearch({ onSubmit }: OnSubmitFunction) {
           id="table-search-users"
           className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Wallet address"
-          value={inputValue}
+          value={wallet}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
         />
       </div>
 
-      <Balance />
+      <Balance balance={balance} balance_usd={balance_usd} />
     </div>
   );
 }
